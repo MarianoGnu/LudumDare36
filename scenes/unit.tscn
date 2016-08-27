@@ -1,0 +1,115 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://scenes/unit.gd" type="Script" id=1]
+[ext_resource path="res://scenes/units/unit.scn" type="PackedScene" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+
+custom_solver_bias = 0.0
+radius = 10.0
+
+[sub_resource type="Animation" id=2]
+
+resource/name = "spin"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("viewport/Spatial/Circle:transform/rotation")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = { "times":FloatArray( 0, 1 ), "transitions":FloatArray( 1, 1 ), "update":0, "values":[ Vector3( 0, 0, 0 ), Vector3( 0, 90, 0 ) ] }
+
+[sub_resource type="NavigationPolygon" id=3]
+
+vertices = Vector2Array( -10, -10, 10, -10, 10, 10, -10, 10 )
+polygons = [ IntArray( 0, 1, 2, 3 ) ]
+outlines = [ Vector2Array( -10, -10, 10, -10, 10, 10, -10, 10 ) ]
+
+[node name="unit" type="KinematicBody2D"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+collision/margin = 0.08
+script/script = ExtResource( 1 )
+speed = 100
+team = null
+type = null
+
+[node name="sprite" type="ViewportSprite" parent="."]
+
+transform/scale = Vector2( 0.25, 0.25 )
+viewport = NodePath("viewport")
+offset = Vector2( 0, -80 )
+
+[node name="viewport" type="Viewport" parent="sprite"]
+
+rect = Rect2( 0, 0, 512, 512 )
+own_world = true
+world = null
+transparent_bg = true
+render_target/enabled = true
+render_target/v_flip = false
+render_target/clear_on_new_frame = true
+render_target/filter = false
+render_target/gen_mipmaps = false
+render_target/update_mode = 3
+audio_listener/enable_2d = false
+audio_listener/enable_3d = false
+physics/object_picking = false
+gui/disable_input = false
+
+[node name="Spatial" parent="sprite/viewport" instance=ExtResource( 2 )]
+
+[node name="Camera" parent="sprite/viewport/Spatial"]
+
+current = true
+
+[node name="Circle" parent="sprite/viewport/Spatial"]
+
+transform/local = Transform( 0.0908832, 0, 0.995862, 0, 1, 0, -0.995862, 0, 0.0908832, 0, 0, 0 )
+
+[node name="Skeleton" parent="sprite/viewport/Spatial/armature"]
+
+bones/32/bound_childs = [ NodePath("BoneAttachment") ]
+
+[node name="Spatial" parent="sprite/viewport/Spatial/armature/Skeleton/BoneAttachment"]
+
+visibility/visible = false
+
+[node name="Spatial 3" parent="sprite/viewport/Spatial/armature/Skeleton/BoneAttachment"]
+
+visibility/visible = true
+
+[node name="AnimationPlayer" parent="sprite/viewport/Spatial"]
+
+autoplay = "default"
+
+[node name="spin" type="AnimationPlayer" parent="sprite"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/spin = SubResource( 2 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "spin"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="."]
+
+navpoly = SubResource( 3 )
+enabled = true
+
+
+[editable path="sprite/viewport/Spatial"]

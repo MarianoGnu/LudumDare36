@@ -1,0 +1,76 @@
+[gd_scene load_steps=5 format=1]
+
+[ext_resource path="res://scenes/levels/level.gd" type="Script" id=1]
+[ext_resource path="res://scenes/levels/decorations/tree.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/unit.tscn" type="PackedScene" id=3]
+
+[sub_resource type="NavigationPolygon" id=1]
+
+vertices = Vector2Array( 0, 0, 1024, 0, 1024, 640, 0, 640 )
+polygons = [ IntArray( 0, 1, 2, 3 ) ]
+outlines = [ Vector2Array( 0, 0, 1024, 0, 1024, 640, 0, 640 ) ]
+
+[node name="level1" type="Node2D"]
+
+script/script = ExtResource( 1 )
+
+[node name="nav" type="Navigation2D" parent="."]
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="nav"]
+
+navpoly = SubResource( 1 )
+enabled = true
+
+[node name="map_objects" type="YSort" parent="nav"]
+
+sort/enabled = true
+
+[node name="tree" parent="nav/map_objects" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 160, 416 )
+
+[node name="tree1" parent="nav/map_objects" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 288, 352 )
+
+[node name="tree2" parent="nav/map_objects" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 224, 224 )
+
+[node name="tree3" parent="nav/map_objects" instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 480, 160 )
+
+[node name="unit" parent="nav/map_objects" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 160, 96 )
+weapon = 0
+
+[node name="unit2" parent="nav/map_objects" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 352, 225 )
+weapon = 0
+
+[node name="unit3" parent="nav/map_objects" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 96, 288 )
+weapon = 0
+
+[node name="unit4" parent="nav/map_objects" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 480, 353 )
+weapon = null
+
+[node name="unit1" parent="nav/map_objects" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 352, 96 )
+weapon = null
+
+[node name="Timer" type="Timer" parent="."]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
+
