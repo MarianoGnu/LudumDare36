@@ -44,27 +44,35 @@ transform/pos = Vector2( 480, 160 )
 [node name="unit" parent="nav/map_objects" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 160, 96 )
-weapon = 0
+weapon = 3
 
 [node name="unit2" parent="nav/map_objects" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 352, 225 )
-weapon = 0
+team = 1
+weapon = 1
 
 [node name="unit3" parent="nav/map_objects" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 96, 288 )
-weapon = 0
+team = 1
+weapon = 2
 
 [node name="unit4" parent="nav/map_objects" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 480, 353 )
-weapon = null
+weapon = 1
+
+[node name="unit5" parent="nav/map_objects" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 352, 480 )
+weapon = 2
 
 [node name="unit1" parent="nav/map_objects" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 352, 96 )
-weapon = null
+team = 1
+weapon = 3
 
 [node name="Timer" type="Timer" parent="."]
 
